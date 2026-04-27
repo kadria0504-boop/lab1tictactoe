@@ -2,7 +2,7 @@
 
 //Export för import i annan fil.
 module.exports = {
-    
+    // ds
     // Vektor för att spara spelplan i
     gameArea: [],
 
