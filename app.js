@@ -53,6 +53,7 @@ app.post('/', (req, res) => {
             
         }
 
+        
         if(globalObject.playerOneColor){
             if(globalObject.playerOneColor===color1){
                 throw "Färg redan tagen";
