@@ -8,8 +8,13 @@ const app=express();
 const globalObject=require('./servermodules/game-modul.js'); 
 const fs=require('fs');// Jag hittade inte denna mappen och alla andra mapper som vi behöver så kanske måste gå till labbhandling och fråga
 
+//cookie parser/ del 3 installation av cookies
+const cookieParser = require('cookie-parser');
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+// cookien igen
+app.use(cookieParser());
 
 app.post('/', (req, res) => {
     console.log(req.body);
@@ -77,12 +82,24 @@ app.post('/', (req, res) => {
 
 
         // Här börjas del 3 Lycka till!!
-        
+        //tack Zack! :)
 
-        res.send("OK");
+    res.cookie('nickName' , nick_1, { //skapar kakan "nickName" fö nick_1 
+        maxAge : 60 * 1000 * 2 * 60,  //livslängd 2 timmar
+        httpOnly : true // inte tillgänglig på js utan bara http
+    } );
+
+    res.cookie('color', color_1, { //samma fast för color
+        maxAge : 60 * 1000 * 2 * 60,
+        httpOnly : true
+    });
+
+    res.redirect('/'); //omdirigerar användaren till "/"
 
     } catch(error)
     {
+
+        // här ska del 4 skrivas! lycka till shahed :)
         res.send(error);
 
     }
