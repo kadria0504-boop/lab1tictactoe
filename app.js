@@ -7,6 +7,7 @@ const express=require('express');
 const app=express();
 const globalObject=require('./servermodules/game-modul.js'); 
 const fs=require('fs');// Jag hittade inte denna mappen och alla andra mapper som vi behöver så kanske måste gå till labbhandling och fråga
+const jsDom = require('jsdom').JSDOM
 
 //cookie parser/ del 3 installation av cookies
 const cookieParser = require('cookie-parser');
@@ -98,15 +99,33 @@ app.post('/', (req, res) => {
 
     } catch(error)
     {
+        fs.readFile('./static/loggain.html', 'utf8', (error2, html) => {
+        
+        if(error2)
+        {
+            res.send("Fel på filen");
+        }
+        const dom = new jsDom(html);
+        const document = dom.window.document;
 
-        // här ska del 4 skrivas! lycka till shahed :)
-        res.send(error);
+        document.querySelector('#errorMsg').textContent = error;
 
-    }
+        if(req.body.nick_1)
+        {
+            document.querySelector('#nick_1').value = req.body.nick_1;
+        }
+
+        if(req.body.color_1)
+        {
+            document.querySelector('#color_1').value = req.body.color_1;
+        }
+        res.send(dom.serialize());
 
  // ser ni detta!!
 
 });
+    }
+
 
 app.listen(3000);
 
