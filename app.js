@@ -33,46 +33,46 @@ app.post("/", (req, res) => {
     }
 
     if (color_1 === undefined) {
-      throw "Färg saknas!";
+      throw new Error("Färg saknas!");
     }
 
     if (nick_1.length < 3) {
-      throw "Nickname ska vara minst tre tecken långt!";
+      throw new Error("Nickname ska vara minst tre tecken långt!");
     }
 
     if (color_1.length !== 7) {
-      throw "Färg ska innehålla sju tecken!";
+      throw new Error("Färg ska innehålla sju tecken!");
     }
 
     const color1 = color_1.toUpperCase();
 
     if (color1 === "#FFFFFF" || color1 === "#000000") {
-      throw "Ogiltig färg!";
+      throw new Error("Ogiltig färg!");
     }
 
     //Del 2
 
     if (globalObject.playerOneNick) {
       if (globalObject.playerOneNick === nick_1) {
-        throw "NickName redan taget";
+        throw new Error("NickName redan taget");
       }
     }
 
     if (globalObject.playerOneColor) {
       if (globalObject.playerOneColor === color1) {
-        throw "Färg redan tagen";
+        throw new Error("Färg redan tagen");
       }
     }
 
     if (globalObject.playerTwoNick) {
       if (globalObject.playerTwoNick === nick_1) {
-        throw "NickName redan taget";
+        throw new Error("NickName redan taget");
       }
     }
 
     if (globalObject.playerTwoColor) {
       if (globalObject.playerTwoColor === color1) {
-        throw "Färg redan tagen";
+        throw new Error("Färg redan tagen");
       }
     }
 
@@ -115,5 +115,9 @@ app.post("/", (req, res) => {
     });
   }
 
-  app.listen(3000);
+  
 }); // error fix- kadde lol
+
+app.listen(3000, () => {
+  console.log(`Server running on http://localhost:3000`);
+});
