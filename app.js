@@ -48,6 +48,7 @@ app.post("/", (req, res) => {
 
     if (color1 === "#FFFFFF" || color1 === "#000000") {
       throw new Error("Ogiltig färg!");
+     
     }
 
     //Del 2
@@ -76,8 +77,20 @@ app.post("/", (req, res) => {
       }
     }
 
+
+    // Spara spelaren i globalObject
+  if (!globalObject.playerOneNick) {
+  globalObject.playerOneNick = nick_1;
+  globalObject.playerOneColor = color1;
+} else {
+  globalObject.playerTwoNick = nick_1;
+  globalObject.playerTwoColor = color1;
+}
     // Här börjas del 3 Lycka till!!
     //tack Zack! :)
+
+
+
 
     res.cookie("nickName", nick_1, {
       //skapar kakan "nickName" fö nick_1
