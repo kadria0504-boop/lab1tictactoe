@@ -17,6 +17,10 @@ app.use(express.json());
 // cookien igen
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/static/html/loggain.html");
+});
+
 app.post("/", (req, res) => {
   console.log(req.body);
 
@@ -25,7 +29,7 @@ app.post("/", (req, res) => {
     const { nick_1, color_1 } = req.body;
 
     if (nick_1 === undefined) {
-      throw "Nickname saknas!";
+      throw new Error("Nickname saknas!");
     }
 
     if (color_1 === undefined) {
@@ -89,7 +93,7 @@ app.post("/", (req, res) => {
 
     res.redirect("/"); //omdirigerar användaren till "/"
   } catch (error) {
-    fs.readFile("./static/loggain.html", "utf8", (error2, html) => {
+    fs.readFile("./static/html/loggain.html", "utf8", (error2, html) => {
       if (error2) {
         res.send("Fel på filen");
       }
