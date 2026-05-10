@@ -91,7 +91,6 @@ app.post("/", (req, res) => {
 
 
 
-
     res.cookie("nickName", nick_1, {
       //skapar kakan "nickName" fö nick_1
       maxAge: 60 * 1000 * 2 * 60, //livslängd 2 timmar
@@ -130,6 +129,12 @@ app.post("/", (req, res) => {
 
   
 }); // error fix- kadde lol
+
+app.get("/reset", (req, res) => {
+  res.clearCookie("nickName");
+  res.clearCookie("color");
+  res.redirect("/");
+});
 
 app.listen(3000, () => {
   console.log(`Server running on http://localhost:3000`);
