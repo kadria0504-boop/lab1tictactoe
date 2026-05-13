@@ -11,9 +11,11 @@ const jsDom = require("jsdom").JSDOM;
 
 //cookie parser/ del 3 installation av cookies
 const cookieParser = require("cookie-parser");
+const { setGlobalProxyFromEnv } = require("http");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 // cookien igen
 app.use(cookieParser());
 
@@ -104,6 +106,7 @@ app.post("/", (req, res) => {
     });
 
     res.redirect("/"); //omdirigerar användaren till "/"
+
   } catch (error) {
     fs.readFile("./static/html/loggain.html", "utf8", (error2, html) => {
       if (error2) {
@@ -130,11 +133,28 @@ app.post("/", (req, res) => {
   
 }); // error fix- kadde lol
 
-app.get("/reset", (req, res) => {
-  res.clearCookie("nickName");
-  res.clearCookie("color");
-  res.redirect("/");
+app.get("/reset", (req, res) => { //skapar en endpoint för reset, klickar någon av spelarna så kommer koden nedan köras.
+
+  const nickName = req.cookies.nickName; // sätter en const för variablen nickName, den hämtar den current playerns namn (den som har klickat på reset)
+
+  if (globalObject.playerOneNick === nickName){ // säger basically, är det första spelaren som har klickat på reset? matchar den som klickade med första spelarens namn?
+    globalObject.playerOneNick = null; //matchar den så körs denna kod - resetta spelare 1's namn i globalObj 
+    globalObject.playerOneColor = null; // samma med färgen
+
+  }
+
+  if (globalObject.playerTwoNick === nickName){ //samma kod som ovan men ifall den som klickade på reset var spelare 2, allstå ifall de namnen matchar med varandra. 
+    globalObject.playerTwoNick = null; //ressetas i globalObj
+    globalObject.playerTwoColor = null; // färgen resetar också i globalObj
+  }
+
+  res.clearCookie("nickName"); // tar bort cookien för namn
+  res.clearCookie("color"); // tar bort cookien för färgen
+
+  res.redirect("/"); // skickar tillbaka spelaren till startsidan
+
 });
+
 
 app.listen(3000, () => {
   console.log(`Server running on http://localhost:3000`);
