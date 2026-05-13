@@ -11,7 +11,7 @@ const jsDom = require("jsdom").JSDOM;
 
 //cookie parser/ del 3 installation av cookies
 const cookieParser = require("cookie-parser");
-const { setGlobalProxyFromEnv } = require("http");
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
