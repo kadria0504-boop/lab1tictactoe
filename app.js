@@ -28,64 +28,64 @@ app.post("/", (req, res) => {
 
   // Del 1
   try {
-    const { nick_1, color_1 } = req.body;
+    const { nick_1, color_1 } = req.body; // hämtar nick_1 och color_1 från request body
 
-    if (nick_1 === undefined) {
+    if (nick_1 === undefined) {// kollar om nick_1 är undefined, alltså inte skickat med i request body
       throw new Error("Nickname saknas!");
     }
 
-    if (color_1 === undefined) {
+    if (color_1 === undefined) { 
       throw new Error("Färg saknas!");
     }
 
-    if (nick_1.length < 3) {
+    if (nick_1.length < 3) {// kollar om nick_1 är mindre än 3 tecken långt
       throw new Error("Nickname ska vara minst tre tecken långt!");
     }
 
-    if (color_1.length !== 7) {
+    if (color_1.length !== 7) {// kollar om color_1 inte är exakt 7 tecken långt
       throw new Error("Färg ska innehålla sju tecken!");
     }
 
-    const color1 = color_1.toUpperCase();
+    const color1 = color_1.toUpperCase();// gör om color_1 till versaler och sparar det i color1
 
-    if (color1 === "#FFFFFF" || color1 === "#000000") {
+    if (color1 === "#FFFFFF" || color1 === "#000000") {// kollar om color1 är lika med "#FFFFFF" eller "#000000"
       throw new Error("Ogiltig färg!");
      
     }
 
     //Del 2
 
-    if (globalObject.playerOneNick) {
-      if (globalObject.playerOneNick === nick_1) {
+    if (globalObject.playerOneNick) {// kollar om playerOneNick finns i globalObject
+      if (globalObject.playerOneNick === nick_1) {// kollar om playerOneNick är lika med nick_1
         throw new Error("NickName redan taget");
       }
     }
 
-    if (globalObject.playerOneColor) {
-      if (globalObject.playerOneColor === color1) {
+    if (globalObject.playerOneColor) {// kollar om playerOneColor finns i globalObject
+      if (globalObject.playerOneColor === color1) {// kollar om playerOneColor är lika med color1
         throw new Error("Färg redan tagen");
       }
     }
 
-    if (globalObject.playerTwoNick) {
-      if (globalObject.playerTwoNick === nick_1) {
+    if (globalObject.playerTwoNick) {// kollar om playerTwoNick finns i globalObject
+      if (globalObject.playerTwoNick === nick_1) {// kollar om playerTwoNick är lika med nick_1
         throw new Error("NickName redan taget");
       }
     }
 
-    if (globalObject.playerTwoColor) {
-      if (globalObject.playerTwoColor === color1) {
+    if (globalObject.playerTwoColor) {// kollar om playerTwoColor finns i globalObject
+      if (globalObject.playerTwoColor === color1) {// kollar om playerTwoColor är lika med color1
         throw new Error("Färg redan tagen");
       }
     }
 
 
     // Spara spelaren i globalObject
-  if (!globalObject.playerOneNick) {
-  globalObject.playerOneNick = nick_1;
+  if (!globalObject.playerOneNick) {// kollar om playerOneNick inte finns i globalObject, alltså är det första spelaren som loggar in
+  globalObject.playerOneNick = nick_1;// sparar nick_1 i playerOneNick i globalObject
   globalObject.playerOneColor = color1;
 } else {
-  globalObject.playerTwoNick = nick_1;
+  globalObject.playerTwoNick = nick_1;// om playerOneNick redan finns så sparas nick_1 i playerTwoNick i globalObject
   globalObject.playerTwoColor = color1;
 }
     // Här börjas del 3 Lycka till!!
