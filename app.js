@@ -54,10 +54,15 @@ app.get('/reset', (req, res) => {
         globalObject.playerOneNick = null;
         globalObject.playerOneColor = null;
         globalObject.playerOneSocketId = null;
+        globalObject.currentPlayer = null; //tillagt
+        globalObject.timerId = null; //tillagt
     } else {
+
         globalObject.playerTwoNick = null;
         globalObject.playerTwoColor = null;
         globalObject.playerTwoSocketId = null;
+        globalObject.currentPlayer = null; //tillagt
+        globalObject.timerId = null; // tillagt
     }
 
     res.redirect('/');
@@ -130,7 +135,7 @@ function stopTimer() {
     }
 }
 
-// ─── TIMEOUT-FUNKTION ────────────────────────────────────────────────────────
+//  TIMEOUT-FUNKTION ────────────────────────────────────────────────────────
 function timeout() {
     if (globalObject.currentPlayer === 1) {
         // Spelare 1 tog för lång tid – meddela spelare 1 om timeout
